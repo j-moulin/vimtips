@@ -1,0 +1,145 @@
+vim tips            
+========
+## les indispensables
+# 
+# see links : 	http://andrewradev.com/2011/06/08/vim-and-ctags/
+# 				http://learnvimscriptthehardway.stevelosh.com
+#
+# ctags: http://ctags.sourceforge.net/
+# vimtaglist : http://vim-taglist.sourceforge.net/
+# autotag.vim : http://www.vim.org/scripts/script.php?script_id=1343
+# nerdtree : http://www.vim.org/scripts/script.php?script_id=1658
+# 
+#
+
+## mode
+
+<esc>	normal
+v		visuel
+V		visuel ligne
+<c-q>	visuel block
+:		commande
+
+## déplacement en mode normal, visuel, visuel ligne, visuel block
+h	un caractère vers la gauche = <s-left>
+j	une ligne vers le bas		= <s-down>
+k	une ligne vers le haut		= <s-up>
+l	un caractère vers la droite	= <s-right>
+
+
+en mode normal on peut aussi utiliser <left> <down> <up> <right> ( les flèches )
+
+{count}w	va au début du mot suivant ( avec {count} se déplace de {count} mot )
+{count}e	va à la fin du mot suivant
+{count}b	va au début du mot précédent
+{count}ge	va à la fin du mot précédent
+ 
+t{char}		va devant la prochaine lettre {char} dans la ligne
+f{char}		va à la prochaine lettre {char} dans la ligne
+t{char}		va derrière la précédente lettre {char} dans la ligne
+f{char}		va à la précédente lettre {char} dans la ligne
+
+/{expr}		va au mot {expr} dans le texte
+q/		affiche l'historique des recherches précédentes (en édition)
+
+_ ou ^		va au premier caractère de la ligne
+0		va à la colonne 0
+$		va à la fin de ligne
+
+gg		début du texte
+g		fin du texte
+{line number}g	va à la ligne {line number}
+
+gu{motion}	met en majuscule à partir du curseur ( {motion} peut être '3w', '$', '/word', '4g',  )
+gu{motion}	met en minuscule à partir du curseur
+
+## motion
+t{char}		jusqu'au {char}
+f{char}		jusqu'au {char} inclu
+i(		tout l'intérieur des ()
+a(		tout l'intérieur des () et les ()
+
+
+## copie et paste
+
+## fenêtres
+<c-w><c-n>	nouvelle fenêtre vide
+...
+
+## définition des touches
+la commande :map permet de redéfinir les touches du clavier.
+    :vnoremap <c-n>	y<c-w><c-n>p
+affecte à la touche <c-n>, en mode visuel, la suite de touches
+	y		copie la sélection courante
+	<c-w><c-n> 	ouvre une nouvelle fenêtre vide
+	p		colle le contenu copié
+
+## en plus
+:h {portnawak}		affiche l'aide sur {portnawak}
+.vimrc			fichier de configuration
+macros
+pluggin
+edition de fichier, tampons, registres, etc, etc, etc.
+
+
+## usage courant
+- sélection d'un bloc entre 2 lignes vierges ( vapy, vab(), vab{} )
+	:nnoremap <space> vapy	" paragraphe entre 2 lignes vierges
+	:noremap { vaby		" bloc entre { et }
+
+- copier la sélection dans un nouveau tampon vierge <c-n>
+	:nnoremap <c-n> <c-w><c-n>p
+
+
+- mise en majuscule/minuscule du mot courant et positionnement sur le mot suivant <c-u>
+
+- mise entre guillemet de la sélection courante %" ou %' ou %` 
+- raccourci pour '<esc>:' <a-:>
+- liste des fichiers du répertoire courant ( :e . )
+- liste des fichiers d'un répertoire ( :!dir /b path )
+
+- liste de todo { avec les fonctionalités suivantes:
+	+ :t ajoute une nouvelle tache
+	+ :t -5 supprime la tache 5
+	+ :t 5	modifie la tache 5, ( s/ancien/nouveau/gci )
+	+ :t affichage du contenu du tampon ( voir q/ )
+}
+
+Pluggins, add-ons, and config 
+Exuberant ctags.exe à mettre dans $VIMRUNTIME
+
+-- NERDTree
+:map § <ESC>:NERDTreeToggle<CR>
+
+--  OmniCompletion
+turn on omnicompletion, add the following to your vimrc:
+filetype plugin on
+set ofu=syntaxcomplete#Complete
+
+-- locate .vimrc
+:echo $MYVIMRC
+
+-- backup
+" Vimscript local functions ---------------------- {{{1
+augroup vim_functions
+ 	augroup! vim_functions
+ 	fun! WriteBackup()
+       	let _modified = &modified
+ 		let time = strftime(".%Y-%m-%d_%H%M%S.")
+ 		if bufname("%") ==? ""
+ 			let fname = "nofile.".l:time.".txt"
+ 		else	
+        	let fname = expand("%:p:r").l:time.expand("%:e")
+ 		endif
+        silent exe ":w " . fnameescape( fname)
+        let &modified = _modified
+        echo "Wrote " . fname 
+ 	endfun
+ 	nnoremap <leader>b :call WriteBackup()<cr>
+ 	inoremap <leader>b <esc>:call WriteBackup()<cr>
+augroup END
+
+" vim:fdm=marker
+
+
+

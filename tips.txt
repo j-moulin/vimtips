@@ -1,0 +1,29 @@
+"== insérer le résultat d'une fonction
+"- dans le texte en cours d'édition:
+" 	<c-r>=the_func("args")<cr>
+"- en mode normal
+" 	"=the_func("args")<cr>P
+"- Sample: 
+" 	current date = "=strftime("%c")<cr>P
+" 	current date = <c-r>=strftime("%c")<cr>
+"
+" Vimscript local functions ---------------------- {{{1
+augroup vim_functions
+ 	augroup! vim_functions
+ 	fun! WriteBackup()
+       	let _modified = &modified
+ 		let time = strftime(".%Y-%m-%d_%H%M%S.")
+ 		if bufname("%") ==? ""
+ 			let fname = "nofile.".l:time.".txt"
+ 		else	
+        	let fname = expand("%:p:r").l:time.expand("%:e")
+ 		endif
+        silent exe ":w " . fnameescape( fname)
+        let &modified = _modified
+        echo "Wrote " . fname 
+ 	endfun
+ 	nnoremap <leader>b :call WriteBackup()<cr>
+ 	inoremap <leader>b <esc>:call WriteBackup()<cr>
+augroup END
+
+" vim:fdm=marker

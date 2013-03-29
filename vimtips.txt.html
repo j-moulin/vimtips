@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~\web\vimtips.txt.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v6">
+<meta name="syntax" content="conf">
+<meta name="settings" content="use_css">
+<style type="text/css">
+<!--
+pre { font-family: monospace; color: #000000; background-color: #ffffff; }
+body { font-family: monospace; color: #000000; background-color: #ffffff; }
+.Constant { color: #ff00ff; }
+.Comment { color: #0000ff; }
+-->
+</style>
+</head>
+<body>
+<pre>
+vim tips
+========
+<span class="Comment">## les indispensables</span>
+<span class="Comment"># </span>
+<span class="Comment"># see links :   <a href="http://andrewradev.com/2011/06/08/vim-and-ctags/">http://andrewradev.com/2011/06/08/vim-and-ctags/</a></span>
+<span class="Comment">#               <a href="http://learnvimscriptthehardway.stevelosh.com">http://learnvimscriptthehardway.stevelosh.com</a></span>
+<span class="Comment">#</span>
+<span class="Comment"># ctags: <a href="http://ctags.sourceforge.net/">http://ctags.sourceforge.net/</a></span>
+<span class="Comment"># vimtaglist : <a href="http://vim-taglist.sourceforge.net/">http://vim-taglist.sourceforge.net/</a></span>
+<span class="Comment"># autotag.vim : <a href="http://www.vim.org/scripts/script.php?script_id=1343">http://www.vim.org/scripts/script.php?script_id=1343</a></span>
+<span class="Comment"># nerdtree : <a href="http://www.vim.org/scripts/script.php?script_id=1658">http://www.vim.org/scripts/script.php?script_id=1658</a></span>
+<span class="Comment"># </span>
+<span class="Comment">#</span>
+
+<span class="Comment">## mode</span>
+
+&lt;esc&gt;   normal
+v       visuel
+V       visuel ligne
+&lt;c-q&gt;   visuel block
+:       commande
+
+<span class="Comment">## déplacement en mode normal, visuel, visuel ligne, visuel block</span>
+h   un caractère vers la gauche     = &lt;s-left&gt;
+j   une ligne vers le bas       = &lt;s-down&gt;
+k   une ligne vers le haut      = &lt;s-up&gt;
+l   un caractère vers la droite = &lt;s-right&gt;
+
+
+en mode normal on peut aussi utiliser &lt;left&gt; &lt;down&gt; &lt;up&gt; &lt;right&gt; ( les flèches )
+
+{count}w    va au début du mot suivant ( avec {count} se déplace de {count} mot )
+{count}e    va à la fin du mot suivant
+{count}b    va au début du mot précédent
+{count}ge   va à la fin du mot précédent
+
+t{char}     va devant la prochaine lettre {char} dans la ligne
+f{char}     va à la prochaine lettre {char} dans la ligne
+t{char}     va derrière la précédente lettre {char} dans la ligne
+f{char}     va à la précédente lettre {char} dans la ligne
+
+/{expr}     va au mot {expr} dans le texte
+q/      affiche l'historique des recherches précédentes (en édition)
+
+_ ou ^      va au premier caractère de la ligne
+0       va à la colonne 0
+$       va à la fin de ligne
+
+gg      début du texte
+g       fin du texte
+{line number}g  va à la ligne {line number}
+
+gu{motion}  met en majuscule à partir du curseur ( {motion} peut être <span class="Constant">'3w'</span>, <span class="Constant">'$'</span>, <span class="Constant">'/word'</span>, <span class="Constant">'4g'</span>,  )
+gu{motion}  met en minuscule à partir du curseur
+
+<span class="Comment">## motion</span>
+t{char}     jusqu'au {char}
+f{char}     jusqu'au {char} inclu
+i(      tout l'intérieur des ()
+a(      tout l'intérieur des () et les ()
+
+
+<span class="Comment">## copie et paste</span>
+
+<span class="Comment">## fenêtres</span>
+&lt;c-w&gt;&lt;c-n&gt;  nouvelle fenêtre vide
+...
+
+<span class="Comment">## définition des touches</span>
+la commande :map permet de redéfinir les touches du clavier.
+    :vnoremap &lt;c-n&gt; y&lt;c-w&gt;&lt;c-n&gt;p
+affecte à la touche &lt;c-n&gt;, en mode visuel, la suite de touches
+    y       copie la sélection courante
+    &lt;c-w&gt;&lt;c-n&gt;  ouvre une nouvelle fenêtre vide
+    p       colle le contenu copié
+
+<span class="Comment">## en plus</span>
+:h {portnawak}      affiche l'aide sur {portnawak}
+.vimrc          fichier de configuration
+macros
+pluggin
+edition de fichier, tampons, registres, etc, etc, etc.
+
+
+<span class="Comment">## usage courant</span>
+- sélection d'un bloc entre 2 lignes vierges ( vapy, vab(), vab{} )
+    :nnoremap &lt;space&gt; vapy  &quot; paragraphe entre 2 lignes vierges
+    :noremap { vaby     &quot; bloc entre { et }
+
+- copier la sélection dans un nouveau tampon vierge &lt;c-n&gt;
+    :nnoremap &lt;c-n&gt; &lt;c-w&gt;&lt;c-n&gt;p
+
+
+- mise en majuscule/minuscule du mot courant et positionnement sur le mot suivant &lt;c-u&gt;
+
+- mise entre guillemet de la sélection courante %&quot; ou %' ou %`
+- raccourci pour <span class="Constant">'&lt;esc&gt;:'</span> &lt;a-:&gt;
+- liste des fichiers du répertoire courant ( :e . )
+- liste des fichiers d'un répertoire ( :!dir /b path )
+
+- liste de todo { avec les fonctionalités suivantes:
+    + :t ajoute une nouvelle tache
+    + :t -5 supprime la tache 5
+    + :t 5  modifie la tache 5, ( s/ancien/nouveau/gci )
+    + :t affichage du contenu du tampon ( voir q/ )
+}
+
+Pluggins, add-ons, and config
+Exuberant ctags.exe à mettre dans $VIMRUNTIME
+
+-- NERDTree
+map § &lt;ESC&gt;:NERDTreeToggle&lt;CR&gt;
+
+--  OmniCompletion
+turn on omnicompletion, add the following to your vimrc:
+filetype plugin on
+set ofu=syntaxcomplete#Complete
+
+-- locate .vimrc
+:echo $MYVIMRC
+
+
+
+</pre>
+</body>
+</html>
