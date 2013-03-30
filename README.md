@@ -9,10 +9,10 @@ Some tips for Vim newbies
 * auto-gen TOC:
 {:toc}
 
-* [Create a backup file for the current buffer](#t1)
+* [Create a backup file for the current buffer]
 
 
-### <a id="t1"></a> Create a backup file for the current buffer ###
+### Create a backup file for the current buffer 
 
  	function! WriteBackup()
  		let l:time = strftime( "__%Y-%m-%d__%H%M%S__.")
