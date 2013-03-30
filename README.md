@@ -6,7 +6,6 @@ Vimtips
 Some tips for Vim newbies
 
 ## Index
-* auto-gen TOC:
 {:toc}
 
 * [Create a backup file for the current buffer] []
