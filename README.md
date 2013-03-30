@@ -9,7 +9,7 @@ Some tips for Vim newbies
 * auto-gen TOC:
 {:toc}
 
-* [Create a backup file for the current buffer][]
+* [Create a backup file for the current buffer]()
 
 
 ### Create a backup file for the current buffer 
